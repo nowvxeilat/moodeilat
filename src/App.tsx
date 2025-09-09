@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { MapPin, Clock, ChefHat, Utensils, Wine, Star } from 'lucide-react';
+import { MapPin, Clock, ChefHat, Utensils, Wine, Star, Menu, X } from 'lucide-react';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { CookiePolicy } from './components/CookiePolicy';
 import { Accessibility } from './components/Accessibility';
@@ -11,6 +11,7 @@ function App() {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showCookies, setShowCookies] = useState(false);
   const [showAccessibility, setShowAccessibility] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Add structured data for better SEO
   React.useEffect(() => {
@@ -43,12 +44,60 @@ function App() {
       <nav className="bg-slate-900 text-white py-4 px-6 shadow-lg" role="navigation" aria-label="תפריט ניווט ראשי">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold text-yellow-400" itemProp="name">MOOD</div>
+          
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8 space-x-reverse">
-            <a href="#menu" className="hover:text-yellow-400 transition-colors">תפריט</a>
-            <a href="#hours" className="hover:text-yellow-400 transition-colors">שעות פתיחה</a>
-            <a href="#location" className="hover:text-yellow-400 transition-colors">מיקום</a>
-            <a href="#bar" className="hover:text-yellow-400 transition-colors">בר</a>
+            <a href="#menu" className="hover:text-yellow-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>תפריט</a>
+            <a href="#hours" className="hover:text-yellow-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>שעות פתיחה</a>
+            <a href="#location" className="hover:text-yellow-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>מיקום</a>
+            <a href="#bar" className="hover:text-yellow-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>בר</a>
           </div>
+          
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="תפריט ניווט"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+        
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t border-slate-700">
+            <div className="flex flex-col space-y-3 pt-4">
+              <a 
+                href="#menu" 
+                className="block px-4 py-2 hover:bg-slate-800 hover:text-yellow-400 transition-colors rounded-lg text-right"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                תפריט הערב
+              </a>
+              <a 
+                href="#hours" 
+                className="block px-4 py-2 hover:bg-slate-800 hover:text-yellow-400 transition-colors rounded-lg text-right"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                שעות פתיחה
+              </a>
+              <a 
+                href="#location" 
+                className="block px-4 py-2 hover:bg-slate-800 hover:text-yellow-400 transition-colors rounded-lg text-right"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                מיקום המסעדה
+              </a>
+              <a 
+                href="#bar" 
+                className="block px-4 py-2 hover:bg-slate-800 hover:text-yellow-400 transition-colors rounded-lg text-right"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                תפריט בר
+              </a>
+            </div>
+          </div>
+        )}
         </div>
       </nav>
 
