@@ -98,7 +98,6 @@ function App() {
             </div>
           </div>
         )}
-        </div>
       </nav>
 
       {/* Hero Section */}
